@@ -19,8 +19,9 @@ def forward_diffusion_sample(x0, t):
     """
     noise = torch.randn_like(x0)
     
-    # Gather alpha_bar[t] for each sample
-    alpha_bar_t = alpha_bar[t].view(-1, 1, 1, 1).to(x0.device)  # shape: [B, 1, 1, 1]
+    # Ensure alpha_bar is on the correct device
+    device = x0.device
+    alpha_bar_t = alpha_bar.to(device)[t].view(-1, 1, 1, 1)
 
     sqrt_ab = alpha_bar_t.sqrt()
     sqrt_one_minus_ab = (1 - alpha_bar_t).sqrt()
