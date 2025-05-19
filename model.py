@@ -12,6 +12,9 @@ class DenoiseNet(nn.Module):
         )
 
     def forward(self, x, t):
+        t = t.float() / T
+        t = t[:, None, None, None].expand_as(x)
+        x = torch.cat([x, t], dim=1)
         return self.net(x)
 
 def loss_fn(model, x0, t):
