@@ -19,13 +19,20 @@ alpha_bar = torch.cumprod(alpha, dim=0)
 @torch.no_grad()
 def sample(model):
     img = torch.randn((1, 1, 28, 28), device=device)
-    for t in reversed(range(T)):
-        beta_t = beta[t]
-        alpha_t = alpha[t]
-        alpha_bar_t = alpha_bar[t]
 
-        noise_pred = model(img, torch.tensor([t], device=device))
-        img = (1 / alpha_t.sqrt()) * (img - (1 - alpha_t).sqrt() * noise_pred)
+    for t in reversed(range(T)):
+        t_tensor = torch.tensor([t], device=device)
+
+        beta_t = beta[t].to(device)
+        alpha_t = alpha[t].to(device)
+        alpha_bar_t = alpha_bar[t].to(device)
+
+        noise_pred = model(img, t_tensor)
+
+        coef1 = 1 / alpha_t.sqrt()
+        coef2 = (1 - alpha_t).sqrt() / alpha_bar_t.sqrt()
+
+        img = coef1 * (img - coef2 * noise_pred)
 
         if t > 0:
             noise = torch.randn_like(img)
