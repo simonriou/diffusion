@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch
 from forward import forward_diffusion_sample
 import torch.nn.functional as F
 
