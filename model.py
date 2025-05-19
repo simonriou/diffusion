@@ -30,3 +30,8 @@ class DenoiseNet(nn.Module):
         # Simplest: just ignore it for now or return to 2-channel version
 
         return self.net(x)
+
+def loss_fn(model, x0, t):
+    x_t, noise = forward_diffusion_sample(x0, t)
+    noise_pred = model(x_t, t)
+    return F.mse_loss(noise_pred, noise)
