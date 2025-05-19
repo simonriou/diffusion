@@ -2,6 +2,8 @@ import torch.nn as nn
 from forward import forward_diffusion_sample
 import torch.nn.functional as F
 
+T = 200
+
 class DenoiseNet(nn.Module):
     def __init__(self):
         super().__init__()
