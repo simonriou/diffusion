@@ -27,13 +27,3 @@ def forward_diffusion_sample(x0, t):
     sqrt_one_minus_ab = (1 - alpha_bar_t).sqrt()
 
     return sqrt_ab * x0 + sqrt_one_minus_ab * noise, noise
-
-timesteps = [1, 20, 50, 100, 150, 199]
-fig, axs = plt.subplots(1, len(timesteps), figsize=(15, 3))
-
-for i, t in enumerate(timesteps):
-    t_tensor = torch.tensor(t)
-    noised_img, _ = forward_diffusion_sample(x0, t_tensor)
-    axs[i].imshow(noised_img.squeeze(), cmap='gray')
-    axs[i].set_title(f"t = {t}")
-    axs[i].axis('off')
