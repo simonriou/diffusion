@@ -37,6 +37,3 @@ for i, t in enumerate(timesteps):
     axs[i].imshow(noised_img.squeeze(), cmap='gray')
     axs[i].set_title(f"t = {t}")
     axs[i].axis('off')
-
-plt.tight_layout()
-plt.show()
