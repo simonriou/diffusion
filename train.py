@@ -2,6 +2,7 @@ from torch.utils.data import DataLoader
 from model import DenoiseNet, loss_fn
 import torch
 from torchvision import datasets, transforms
+from tqdm import tqdm
 
 # Device setup
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -24,7 +25,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 for epoch in range(EPOCHS):
     print(f"\nEpoch {epoch + 1}/{EPOCHS}")
     epoch_loss = 0.0
-    for batch_idx, (x, _) in enumerate(dataloader):
+    for batch_idx, (x, _) in enumerate(tqdm(dataloader, desc="Training")):
         x = x.to(device)
         t = torch.randint(0, T, (x.shape[0],), device=device)
 
