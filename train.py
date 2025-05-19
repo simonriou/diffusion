@@ -15,7 +15,7 @@ dataloader = DataLoader(mnist, batch_size=128, shuffle=True)
 
 # Constants
 T = 200  # total timesteps
-EPOCHS = 5
+EPOCHS = 20
 
 # Model and optimizer
 model = DenoiseNet().to(device)

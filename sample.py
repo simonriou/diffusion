@@ -1,4 +1,5 @@
 import torch
+from torchvision import datasets, transforms
 import matplotlib.pyplot as plt
 from model import DenoiseNet
 
